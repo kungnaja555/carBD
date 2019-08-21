@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">carBackdoor</string>
+    <string name="free">ว่าง</string>
+    <string name="nofree">ไม่ว่าง</string>
+    <string name="idCar_text">ทะเบียน</string>
+    <string name="brand_text">รุ่น</string>
+    <string name="name_text">ชื่อ</string>
+    <string name="update_bt_text">update</string>
+    <string name="delete_bt_text">delete</string>
+</resources>
