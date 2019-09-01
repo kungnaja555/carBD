@@ -8,6 +8,7 @@ import buu.informatics.s59160951.carbackdoor.databinding.ActivityMainBinding
 import kotlinx.android.synthetic.main.activity_main.*
 import android.app.AlertDialog
 import android.content.DialogInterface
+import android.graphics.Color
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
@@ -18,10 +19,10 @@ class MainActivity : AppCompatActivity() {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
         binding.apply {
             updateBt.setOnClickListener {
-                updateDataCar(it)
+                updateDataCar()
             }
             deleteBt.setOnClickListener{
-                deleteDataCar(it)
+                deleteDataCar()
             }
             carPark1.setOnClickListener {
                 ind = 0
@@ -38,43 +39,30 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun updateDataCar(view: View) {
+    private fun updateDataCar() {
         binding.apply {
             var idCarTxt = idCar.text.toString()
             var brandTxt = brand.text.toString()
             var nameTxt = name.text.toString()
-            if(idCarTxt != "" && brandTxt != "" && nameTxt != ""){
-                this@MainActivity.carInfo[ind]?.idCar = idCarTxt
-                this@MainActivity.carInfo[ind]?.brand = brandTxt
-                this@MainActivity.carInfo[ind]?.name = nameTxt
-                when(ind){
-                    0 -> carPark1.text = idCarTxt
-                    1 -> carPark2.text = idCarTxt
-                    2 -> carPark3.text = idCarTxt
-                }
-                invalidateAll()
-            }else{
-               showAlert()
+            this@MainActivity.carInfo[ind]?.idCar = idCarTxt
+            this@MainActivity.carInfo[ind]?.brand = brandTxt
+            this@MainActivity.carInfo[ind]?.name = nameTxt
+            when(ind){
+                0 -> carPark1.text = idCarTxt
+                1 -> carPark2.text = idCarTxt
+                2 -> carPark3.text = idCarTxt
             }
+            when(ind){
+                0 -> carPark1.setBackgroundResource(R.color.red)
+                1 -> carPark2.setBackgroundResource(R.color.red)
+                2 -> carPark3.setBackgroundResource(R.color.red)
+            }
+            invalidateAll()
+
         }
     }
 
-    private fun showAlert(){
-        val dialogBuilder = AlertDialog.Builder(this@MainActivity)
-        dialogBuilder.setMessage("กรุณากรอกข้อมูลให้ครบถ้วน")
-            .setCancelable(false)
-            .setPositiveButton("ตกลง", DialogInterface.OnClickListener {
-                    dialog, id -> dialog.cancel()
-            })
-            .setNegativeButton("ยกเลิก", DialogInterface.OnClickListener {
-                    dialog, id -> dialog.cancel()
-            })
-        val alert = dialogBuilder.create()
-        alert.setTitle("เกิดข้อผิดพลาด")
-        alert.show()
-    }
-
-    private fun deleteDataCar(view: View){
+    private fun deleteDataCar(){
         binding.apply {
             this@MainActivity.carInfo[ind]?.idCar = ""
             this@MainActivity.carInfo[ind]?.brand = ""
@@ -83,6 +71,11 @@ class MainActivity : AppCompatActivity() {
                 0 -> carPark1.text = "ว่าง"
                 1 -> carPark2.text = "ว่าง"
                 2 -> carPark3.text = "ว่าง"
+            }
+            when(ind){
+                0 -> carPark1.setBackgroundResource(R.color.green)
+                1 -> carPark2.setBackgroundResource(R.color.green)
+                2 -> carPark3.setBackgroundResource(R.color.green)
             }
             invalidateAll()
         }
